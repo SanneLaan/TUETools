@@ -1,0 +1,70 @@
+{% extends 'tuetools/base.html' %}
+
+{% block body %}
+<div class="jumbotron jumbotron-header">
+	<div class="container container-header">
+	  <h1 class="namebrand">TUE Tools</h1>
+	  <p>The place to collectively get smarter.</p>
+	  <p><a class="btn btn-primary btn-lg" href="{% url 'tuetools:register' %}" role="button">Sign up</a></p>
+	</div>
+</div>
+
+<div class="jumbotron jumbotron-second">
+	<div class="container container-second">
+		<h1 class="head">The idea behind TUE Tools.</h1>
+		<h3>Users of TUE Tools can share and download files belonging to the courses they are following. Everything what comes in handy to pass a course can be uploaded via your own account. Think of books, summaries, handouts, studyguides, etc. By creating an account you will get access to all the documents other users have uploaded, and be able to upload your own documents yourself. Build a practical library full with the files you need every exam. </h3>
+	</div>
+</div>
+
+<div class="jumbotron jumbotron-offers">
+	<div class="container offers">
+		<div class="row">
+			<div class="col-lg-6">
+				<!--<img class="img-circle" src="http://www.uccsubaqua.com/wp-content/uploads/2015/09/quantum-physics-lecture.png" alt="Generic placeholder image" width="200" height="200">-->
+				<span class="glyphicon glyphicon-comment"></span>
+				<h2 class="heading">Courses</h2>
+				<h4>You can look for the courses that you are currently attending at the TU/e, or will attend in the future and mark them as 'current'. Following these courses with TUE Tools means that you will get all the documents connected to these certain courses in your personal library.</h4>
+			</div>
+			<div class="col-lg-6">
+				<span class="glyphicon glyphicon-duplicate"></span>				
+				<h2>Documents</h2>
+				<h4>Documents are uploaded by other students, attending those courses at the TU/e. By creating an account you can maintain your own library by folowing courses and adding documents. Furthermore, you can upload documents yourself to add to your library or help other students out. </h4>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="jumbotron jumbotron-courses">
+	<div class="courses-container container">
+		<h3 class="table-title">All available courses:</h3>
+		<div class="row">
+				   <div class="panel panel-default">
+					<div class="panel-body">
+						{% if error_message %}
+							<p><strong>{{ error_message }}</strong></p>
+						{% endif %}
+						<table class="table">
+							<thead>
+							<tr>
+								<th>Course name</th>
+								<th>Course code</th>
+								<th> </th>
+							</tr>
+							</thead>
+							<tbody>
+							{% for course in courses %}
+								<tr>
+									<td>{{ course.course_name }}</td>
+									<td>{{ course.course_code }}</td>
+									<td>
+										<a href="{% url 'tuetools:detail' course.id %}" class="btn btn-primary btn-sm" role="button">View documents</a>
+									</td>                                
+								</tr>
+							{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+		</div>
+	</div>
+</div>
+	{% endblock %}

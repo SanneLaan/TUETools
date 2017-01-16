@@ -1,0 +1,45 @@
+{% extends 'tuetools/base.html' %}
+{% block title %}Upload a new document{% endblock %}
+{% block documents_active %}active{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'tuetools:detail' course.id %}"></a>
+                    <h4>{{ course.course_name }} <small>{{ course.course_code }}</small></h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-8 col-md-9">
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation"><a href="{% url 'tuetools:detail' course.id %}">View All</a></li>
+                <li role="presentation" class="active"><a href="{% url 'tuetools:upload_document' course.id %}">Upload a new document</a></li>
+            </ul>
+            <div class="panel panel-default" id="documents">
+                <div class="panel-body">
+                    <h3>Upload a new document</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="course" value="{{ course }}">
+                        {% include 'tuetools/form.html' %}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Upload</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'tuetools/base.html' %}
+
+{% block documents_active %}active{% endblock %}
+
+{% block body %}
+<div class="container documents-container">
+    <div class="row">
+        <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Your uploaded documents:</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Course name</th>
+                            <th>Document name</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for course in courses %}
+                                {% for document in course.document_set.all %}
+                                    {% if document.user == user %}
+                                        <tr>
+                                            <td><a href="{% url 'tuetools:detail' course.id %}">{{ course.course_name }}</a></td>
+                                            <td>{{ document.document_name }}</td>
+                                            <td>
+                                                <a target="_blank" href="{{ document.document_file.url }}">
+                                                    <button type="button" class="btn btn-success btn-xs">
+                                                        <span class="glyphicon glyphicon-download"></span>&nbsp; Download
+                                                    </button>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                {% if document.user == user %}
+                                                    <form action="{% url 'tuetools:delete_document' course.id document.id %}" method="post" style="display: inline;">
+                                                        {% csrf_token %}
+                                                    <input type="hidden" name="document_id" value="{{ document.id }}" />
+                                                    <button type="submit" class="btn btn-danger btn-xs">
+                                                        <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete
+                                                    </button>
+                                                    </form>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    </div>
+</div>
+{% endblock %}

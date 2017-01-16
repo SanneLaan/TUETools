@@ -1,0 +1,44 @@
+{% extends 'tuetools/base.html' %}
+
+{% block courses_active %}active{% endblock %}
+
+{% block body %}
+<div class="container documents-container">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3>All available courses:</h3>
+                {% if error_message %}
+                    <p><strong>{{ error_message }}</strong></p>
+                {% endif %}
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Course name</th>
+                        <th>Course code</th>
+                        <th> </th>
+                        <th>Is current course</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for course in courses %}
+                        <tr>
+                            <td>{{ course.course_name }}</td>
+                            <td>{{ course.course_code }}</td>
+                            <td>
+                                <a href="{% url 'tuetools:detail' course.id %}" class="btn btn-primary btn-sm" role="button">View documents</a>
+                            </td>
+                        <td>
+                            <a href="{% url 'tuetools:make_current_course' course.id %}" class="btn btn-default btn-sm btn-favorite" role="button">
+                                <span class="glyphicon glyphicon-ok {% if course.is_current_course %}active{% endif %}"></span>
+                            </a>
+                        </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

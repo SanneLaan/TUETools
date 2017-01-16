@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}TUE Tools{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'tuetools/style.css' %}"/>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'tuetools/js/main.js' %}"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navBarTop">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'tuetools:index' %}">TUE Tools</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navBarTop">
+            <ul class="nav navbar-nav">
+                <li class="{% block login_active %}{% endblock %}"><a href="{% url 'tuetools:login_user' %}">Log in</a></li>
+                <li class="{% block register_active %}{% endblock %}"><a href="{% url 'tuetools:register' %}">Register</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+{% block body %}
+{% endblock %}
+<footer>
+    <div class="footer" id="footer">
+        <div class="container">
+            <div class="row">
+                <!-- <div class="col-lg-6  col-md-2 col-sm-4 col-xs-6"> -->
+                    <h1 class="name col-md-3 col-md-offset-3"> TUE Tools </h1>
+                <!-- </div> -->
+                <div class="col-md-3">
+                    <ul class="social">
+                        <li> <a href="https://www.facebook.com/"> <i class=" fa fa-facebook">   </i> </a> </li>
+                        <li> <a href="https://twitter.com/"> <i class="fa fa-twitter">   </i> </a> </li>
+                        <li> <a href="https://plus.google.com/"> <i class="fa fa-google-plus">   </i> </a> </li>
+                        <li> <a href="https://pinterest.com/"> <i class="fa fa-pinterest">   </i> </a> </li>
+                        <li> <a href="https://www.youtube.com/"> <i class="fa fa-youtube">   </i> </a> </li>
+                    </ul>
+                </div>
+            </div> 
+        </div> 
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <p class="pull-left"> Copyright © TUE Tools™ 2017 </p>
+        </div>
+    </div> 
+</footer>
+</body>
+</html>
